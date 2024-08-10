@@ -11,7 +11,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "QuickMed",
+  title: "CarePulse",
   description: "A healthcare platform for everyone",
 }
 
