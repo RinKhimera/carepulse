@@ -12,7 +12,7 @@ export default function Home() {
           <Image
             className="mb-12 h-10 w-fit"
             src={"/assets/icons/logo-full.svg"}
-            alt={"App logo"}
+            alt={"CarePulse logo"}
             width={1000}
             height={1000}
           />

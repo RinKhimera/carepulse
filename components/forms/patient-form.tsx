@@ -3,6 +3,7 @@
 import { CustomFormField } from "@/components/custom-form-field"
 import { SubmitButton } from "@/components/submit-button"
 import { Form } from "@/components/ui/form"
+import { createUser } from "@/lib/actions/patient.actions"
 import { UserFormValidation } from "@/lib/validations"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
@@ -40,9 +41,13 @@ export const PatientForm = () => {
   }: z.infer<typeof UserFormValidation>) => {
     startTransition(async () => {
       try {
-        // const userData = {name, email, phone}
-        // const user = await createUser(userData)
-        // if (user) router.push(`/patients/${user.$id}/register`)
+        const user = { name, email, phone }
+
+        const newUser = await createUser(user)
+
+        console.log({ newUser })
+
+        if (newUser) router.push(`/patients/${newUser.$id}/register`)
       } catch (error) {
         console.error(error)
       }

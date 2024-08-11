@@ -11,6 +11,9 @@ import {
 import { Input } from "@/components/ui/input"
 import { E164Number } from "libphonenumber-js"
 import Image from "next/image"
+// import ReactDatePicker from "react-datepicker"
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
 import { Control } from "react-hook-form"
 import PhoneInput from "react-phone-number-input"
 import "react-phone-number-input/style.css"
@@ -37,7 +40,15 @@ const RenderField = ({
   field: any
   props: CustomFormFieldProps
 }) => {
-  const { fieldType, placeholder, iconSrc, iconAlt } = props
+  const {
+    fieldType,
+    placeholder,
+    iconSrc,
+    iconAlt,
+    showTimeSelect,
+    dateFormat,
+    renderSkeleton,
+  } = props
 
   switch (props.fieldType) {
     case FormFieldType.INPUT:
@@ -77,6 +88,41 @@ const RenderField = ({
           />
         </FormControl>
       )
+
+    case FormFieldType.DATE_PICKER:
+      return (
+        <div className="flex rounded-md border border-dark-500 bg-dark-400">
+          <Image
+            className="ml-2"
+            src="/assets/icons/calendar.svg"
+            alt="Calendar"
+            height={24}
+            width={24}
+          />
+          <FormControl>
+            <DatePicker
+              selected={field.value}
+              onChange={(date) => field.onChange(date)}
+              dateFormat={dateFormat ?? "MM/dd/yyyy"}
+              showTimeSelect={showTimeSelect ?? false}
+              timeInputLabel="Time:"
+              wrapperClassName="date-picker"
+            />
+
+            {/* <ReactDatePicker
+              showTimeSelect={props.showTimeSelect ?? false}
+              selected={field.value}
+              onChange={(date: Date) => field.onChange(date)}
+              timeInputLabel="Time:"
+              dateFormat={props.dateFormat ?? "MM/dd/yyyy"}
+              wrapperClassName="date-picker"
+            /> */}
+          </FormControl>
+        </div>
+      )
+
+    case FormFieldType.SKELETON:
+      return renderSkeleton ? renderSkeleton(field) : null
   }
 }
 
