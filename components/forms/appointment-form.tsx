@@ -6,7 +6,10 @@ import { SubmitButton } from "@/components/submit-button"
 import { Form } from "@/components/ui/form"
 import { SelectItem } from "@/components/ui/select"
 import { Doctors } from "@/constants"
-import { createAppointment } from "@/lib/actions/appointment.actions"
+import {
+  createAppointment,
+  updateAppointment,
+} from "@/lib/actions/appointment.actions"
 import { getAppointmentSchema } from "@/lib/validations"
 import { Appointment } from "@/types/appwrite.types"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -34,6 +37,8 @@ export const AppointmentForm = ({
   const [isPending, startTransition] = useTransition()
 
   const AppointmentFormValidation = getAppointmentSchema(type)
+
+  console.log(appointment)
 
   const form = useForm<z.infer<typeof AppointmentFormValidation>>({
     resolver: zodResolver(AppointmentFormValidation),
@@ -97,14 +102,14 @@ export const AppointmentForm = ({
             type,
           }
 
-          // const updatedAppointment = await updateAppointment(
-          //   appointmentToUpdate
-          // )
+          const updatedAppointment = await updateAppointment(
+            appointmentToUpdate
+          )
 
-          // if (updatedAppointment) {
-          //   setOpen && setOpen(false)
-          //   form.reset()
-          // }
+          if (updatedAppointment) {
+            setOpen && setOpen(false)
+            form.reset()
+          }
         }
       } catch (error) {
         console.log(error)
