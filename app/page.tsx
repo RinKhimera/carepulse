@@ -1,11 +1,14 @@
 import { PatientForm } from "@/components/forms/patient-form"
+import { PasskeyModal } from "@/components/passkey-modal"
 import Image from "next/image"
 import Link from "next/link"
 
-export default function Home() {
+export default function Home({ searchParams }: SearchParamProps) {
+  const isAdmin = searchParams?.admin === "true"
+
   return (
     <div className="flex max-h-screen h-screen">
-      {/* OTP Verif */}
+      {isAdmin && <PasskeyModal />}
 
       <section className="remove-scrollbar container">
         <div className="sub-container max-w-[496px]">
@@ -23,7 +26,9 @@ export default function Home() {
             <p className="justify-items-end text-dark-600 xl:text-left">
               © {new Date().getFullYear()} CarePulse
             </p>
-            <Link href="/?admin=true" className="text-green-500"></Link>
+            <Link href="/?admin=true" className="text-green-500">
+              Admin
+            </Link>
           </div>
         </div>
       </section>
