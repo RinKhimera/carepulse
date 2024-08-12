@@ -2,10 +2,10 @@ import { RegisterForm } from "@/components/forms/register-form"
 import Image from "next/image"
 import { redirect } from "next/navigation"
 
-// import { getPatient, getUser } from "@/lib/actions/patient.actions"
+import { getUser } from "@/lib/actions/patient.actions"
 
 const RegisterPage = async ({ params: { userId } }: SearchParamProps) => {
-  // const user = await getUser(userId)
+  const user = await getUser(userId)
   // const patient = await getPatient(userId)
 
   // if (patient) redirect(`/patients/${userId}/new-appointment`)
@@ -22,7 +22,7 @@ const RegisterPage = async ({ params: { userId } }: SearchParamProps) => {
             className="mb-12 h-10 w-fit"
           />
 
-          <RegisterForm />
+          <RegisterForm user={user} />
 
           <p className="copyright py-12">
             © {new Date().getFullYear()} CarePulse
