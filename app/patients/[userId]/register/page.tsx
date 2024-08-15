@@ -1,14 +1,13 @@
 import { RegisterForm } from "@/components/forms/register-form"
+import { getPatient, getUser } from "@/lib/actions/patient.actions"
 import Image from "next/image"
 import { redirect } from "next/navigation"
 
-import { getUser } from "@/lib/actions/patient.actions"
-
 const RegisterPage = async ({ params: { userId } }: SearchParamProps) => {
   const user = await getUser(userId)
-  // const patient = await getPatient(userId)
+  const patient = await getPatient(userId)
 
-  // if (patient) redirect(`/patients/${userId}/new-appointment`)
+  if (patient) redirect(`/patients/${userId}/new-appointment`)
 
   return (
     <div className="flex h-screen max-h-screen">
